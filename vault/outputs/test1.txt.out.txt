@@ -1,0 +1,13 @@
+=== PROCESSED FILE ===
+Source: test1.txt
+
+This is a Claude integration test.
+
+Goal:
+- confirm file reading works
+- confirm processing pipeline works
+- confirm outputs are generated
+
+Topic: vault system test
+
+Status: OK

@@ -1,0 +1,17 @@
+Build a Pre-Launch QA tool for Webflow sites that:
+
+- takes a website URL
+- takes a list of forbidden domains (demo/staging)
+- crawls internal pages
+- scans page HTML for those domains
+- outputs where they appear (page + snippet)
+
+Input URL + forbidden domains
+        ↓
+Crawler (collect pages)
+        ↓
+HTML scanner (search text + links)
+        ↓
+Report generator
+        ↓
+Output (console / file / later Google Sheets)

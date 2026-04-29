@@ -1,0 +1,59 @@
+# Webflow + Google Sheets Sync Plan
+
+Date: 2026-04-22
+
+## Feasibility Assessment
+Yes, it is possible to connect Webflow and Google Sheets to automatically fill numbers and addresses on your "Symbol page". Since it's a static page, we'll use client-side JavaScript to fetch data from Google Sheets on page load.
+
+## Requirements
+- Google account with Google Sheets access
+- Webflow site with custom code permissions (paid plan required for custom code)
+- Basic knowledge of JavaScript (or willingness to learn/copy code)
+- Google Sheets API enabled (free)
+
+## Approach: Client-Side Fetch with Google Apps Script
+We'll use Google Apps Script to create a secure endpoint that serves your sheet data, then embed JavaScript in your Webflow page to fetch and populate the symbols.
+
+### Step 1: Prepare Google Sheets
+1. Create a Google Sheet with columns for numbers and addresses
+2. Name the sheet (e.g., "SymbolData")
+3. Ensure data is in a readable format
+
+### Step 2: Create Google Apps Script
+1. Open Google Sheets → Extensions → Apps Script
+2. Create a new script with a `doGet` function that returns JSON data
+3. Deploy as web app (Execute as "Me", Access "Anyone")
+4. Get the deployment URL
+
+### Step 3: Update Webflow Page
+1. Add HTML embed element to your Symbol page
+2. Insert JavaScript that:
+   - Fetches data from Apps Script URL
+   - Parses JSON response
+   - Updates symbol elements with data
+
+### Step 4: Handle Symbols
+- Give your symbol elements unique IDs or classes
+- Use JavaScript to target and update them
+
+## Alternative Approaches
+- **Zapier**: Use Zapier to trigger updates when sheet changes (requires Zapier account, ~$20/month)
+- **Webflow API + Server**: Use a server (Vercel, Netlify) to proxy requests (more complex)
+- **Makeflow/Parabola**: Visual automation tools for no-code solutions
+
+## Challenges & Considerations
+- **Security**: Apps Script deployment is public but can be secured with keys
+- **Performance**: Client-side loading may have slight delay
+- **Updates**: Data updates on page refresh, not real-time
+- **CORS**: Ensure Apps Script allows cross-origin requests
+- **Rate Limits**: Google APIs have free quotas
+
+## Next Steps
+1. Share your Google Sheet structure for specific code examples
+2. Confirm if you have Webflow custom code access
+3. Decide on approach (Apps Script recommended for simplicity)
+
+## Resources
+- Google Apps Script documentation
+- Webflow custom code guide
+- Google Sheets API reference
