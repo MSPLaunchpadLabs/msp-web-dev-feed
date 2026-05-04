@@ -422,94 +422,6 @@
 
     .footer strong { color: var(--teal); }
 
-    /* ── Previous Issues button ── */
-    .issues-btn-wrap {
-      position: fixed;
-      top: 20px;
-      right: 24px;
-      z-index: 100;
-    }
-
-    .issues-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-      letter-spacing: 0.03em;
-    }
-
-    .issues-btn:hover { border-color: #333; color: var(--text); }
-
-    .issues-btn-arrow {
-      font-size: 10px;
-      transition: transform 0.2s;
-    }
-
-    .issues-btn-wrap.open .issues-btn-arrow { transform: rotate(180deg); }
-
-    .issues-dropdown {
-      display: none;
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      min-width: 180px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    }
-
-    .issues-btn-wrap.open .issues-dropdown { display: block; }
-
-    .issues-dropdown-title {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #444;
-      padding: 12px 16px 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .issues-dropdown-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--muted);
-      text-decoration: none;
-      transition: background 0.15s, color 0.15s;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .issues-dropdown-item:last-child { border-bottom: none; }
-    .issues-dropdown-item:hover { background: rgba(255,255,255,0.03); color: var(--text); }
-
-    .issues-dropdown-item.current { color: var(--teal); }
-
-    .issues-tag {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: var(--teal-dim);
-      color: var(--teal);
-      border: 1px solid rgba(0,212,200,0.2);
-    }
-
     /* ── Responsive ── */
     @media (max-width: 560px) {
       .card-body { padding: 18px 16px 16px; }
@@ -1077,31 +989,5 @@
     Generated 2026-05-04 &nbsp;·&nbsp; <strong>MSP Launchpad Labs</strong> &nbsp;·&nbsp; CTO Intelligence Feed &nbsp;·&nbsp; Updated every Monday
   </footer>
 
-  <div class="issues-btn-wrap" id="issuesBtnWrap">
-    <button class="issues-btn" id="issuesBtn" aria-expanded="false">
-      Previous Issues <span class="issues-btn-arrow">▾</span>
-    </button>
-    <div class="issues-dropdown" role="listbox">
-      <div class="issues-dropdown-title">All Issues</div>
-      <a class="issues-dropdown-item current" href="#">4/5/2026 <span class="issues-tag">Current</span></a>
-      <a class="issues-dropdown-item" href="#">1/5/2026</a>
-    </div>
-  </div>
-
-  <script>
-    (function() {
-      var wrap = document.getElementById('issuesBtnWrap');
-      var btn  = document.getElementById('issuesBtn');
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var open = wrap.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-      });
-      document.addEventListener('click', function() {
-        wrap.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-      });
-    })();
-  </script>
 </body>
 </html>
