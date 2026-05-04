@@ -422,7 +422,118 @@
 
     .footer strong { color: var(--teal); }
 
+    /* ── Page shell ── */
+    .page-layout {
+      display: flex;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 164px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 28px 0 40px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-title {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #444;
+      padding: 0 18px 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .sidebar-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+
+    .sidebar-item.active {
+      color: var(--teal);
+      border-left-color: var(--teal);
+      background: var(--teal-dim);
+    }
+
+    .sidebar-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* ── Two-week columns ── */
+    .weeks-layout {
+      flex: 1;
+      display: flex;
+      min-width: 0;
+    }
+
+    .week-col {
+      flex: 1;
+      min-width: 0;
+      padding: 36px 28px 80px;
+      border-right: 1px solid var(--border);
+    }
+
+    .week-col:last-child { border-right: none; }
+
+    .week-col-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .week-col-date {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .week-col-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 10px;
+      border: 1px solid;
+    }
+
+    .week-col-badge.current { color: var(--teal); background: var(--teal-dim); border-color: rgba(0,212,200,0.2); }
+    .week-col-badge.prev    { color: #555; background: rgba(255,255,255,0.04); border-color: var(--border); }
+
     /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .sidebar { display: none; }
+      .weeks-layout { flex-direction: column; }
+      .week-col { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 20px 48px; }
+      .week-col:last-child { border-bottom: none; }
+    }
+
     @media (max-width: 560px) {
       .card-body { padding: 18px 16px 16px; }
       .impl-breakdown, .metrics, .impact-proj { flex-direction: column; }
@@ -445,7 +556,18 @@
     </div>
   </header>
 
-  <main class="container">
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Issues</div>
+      <a class="sidebar-item active" href="#week-0504"><span class="sidebar-dot"></span>4/5</a>
+      <a class="sidebar-item" href="#week-0501"><span class="sidebar-dot"></span>1/5</a>
+    </aside>
+    <div class="weeks-layout">
+      <div class="week-col" id="week-0504">
+        <div class="week-col-header">
+          <span class="week-col-date">4/5</span>
+          <span class="week-col-badge current">Current</span>
+        </div>
 
     <!-- ════════ S TIER ════════ -->
     <div class="tier-heading tier-s">
@@ -983,11 +1105,32 @@
       </div>
     </article>
 
-  </main>
+      </div><!-- /week-col 4/5 -->
+
+      <div class="week-col" id="week-0501">
+        <div class="week-col-header">
+          <span class="week-col-date">1/5</span>
+          <span class="week-col-badge prev">Previous</span>
+        </div>
+      </div><!-- /week-col 1/5 -->
+
+    </div><!-- /weeks-layout -->
+  </div><!-- /page-layout -->
 
   <footer class="footer">
     Generated 2026-05-04 &nbsp;·&nbsp; <strong>MSP Launchpad Labs</strong> &nbsp;·&nbsp; CTO Intelligence Feed &nbsp;·&nbsp; Updated every Monday
   </footer>
 
+  <script>
+    (function() {
+      var src = document.getElementById('week-0504');
+      var dst = document.getElementById('week-0501');
+      Array.from(src.children).forEach(function(el) {
+        if (!el.classList.contains('week-col-header')) {
+          dst.appendChild(el.cloneNode(true));
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
