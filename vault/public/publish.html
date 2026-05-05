@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Publisher — MSP Launchpad</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f4f6f9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 40px 44px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .logo {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .hint {
+      font-size: 12px;
+      font-weight: 400;
+      color: #9ca3af;
+      margin-left: 6px;
+    }
+
+    input[type="text"], input[type="url"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #111827;
+      background: #fafafa;
+      transition: border-color 0.15s;
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"]:focus, input[type="url"]:focus {
+      border-color: #6366f1;
+      background: #fff;
+    }
+
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .color-row input[type="text"] {
+      margin-bottom: 0;
+      flex: 1;
+    }
+
+    input[type="color"] {
+      width: 44px;
+      height: 42px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 2px;
+      cursor: pointer;
+      background: #fafafa;
+      flex-shrink: 0;
+    }
+
+    .divider {
+      height: 1px;
+      background: #f3f4f6;
+      margin: 8px 0 24px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      background: #6366f1;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    button:hover { background: #4f46e5; }
+    button:active { transform: scale(0.99); }
+    button:disabled { background: #a5b4fc; cursor: not-allowed; }
+
+    .status {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .status.success { background: #ecfdf5; color: #065f46; display: block; }
+    .status.error   { background: #fef2f2; color: #991b1b; display: block; }
+    .status.loading { background: #eff6ff; color: #1e40af; display: block; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">MSP Launchpad Labs</div>
+    <h1>Publish Blog Draft</h1>
+
+    <label>Client ID <span class="hint">Airtable record ID</span></label>
+    <input type="text" id="client_id" placeholder="recXXXXXXXXXXXXXX" />
+
+    <label>Keyword Record ID <span class="hint">Airtable record ID</span></label>
+    <input type="text" id="keyword_id" placeholder="recXXXXXXXXXXXXXX" />
+
+    <label>Webflow Site ID <span class="hint">from Webflow dashboard</span></label>
+    <input type="text" id="webflow_site_id" placeholder="64abc123def456..." />
+
+    <label>TOC Accent Color</label>
+    <div class="color-row">
+      <input type="text" id="toc_color_text" placeholder="#6366f1" value="#6366f1" />
+      <input type="color" id="toc_color_picker" value="#6366f1" />
+    </div>
+
+    <div class="divider"></div>
+
+    <button id="publishBtn" onclick="publish()">Publish Blog</button>
+    <div class="status" id="status"></div>
+  </div>
+
+  <script>
+    const picker = document.getElementById('toc_color_picker');
+    const text   = document.getElementById('toc_color_text');
+
+    picker.addEventListener('input', () => { text.value = picker.value; });
+    text.addEventListener('input', () => {
+      if (/^#[0-9a-fA-F]{6}$/.test(text.value)) picker.value = text.value;
+    });
+
+    async function publish() {
+      const client_id      = document.getElementById('client_id').value.trim();
+      const keyword_id     = document.getElementById('keyword_id').value.trim();
+      const webflow_site_id = document.getElementById('webflow_site_id').value.trim();
+      const toc_color      = text.value.trim();
+
+      if (!client_id || !keyword_id) {
+        showStatus('error', 'Client ID and Keyword Record ID are required.');
+        return;
+      }
+
+      const btn = document.getElementById('publishBtn');
+      btn.disabled = true;
+      showStatus('loading', 'Sending to n8n… workflow is running.');
+
+      try {
+        const res = await fetch('https://n8n.msplaunchpad.com/webhook/mspl-blog-publish-2026', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ client_id, keyword_id, webflow_site_id, toc_color }),
+        });
+
+        if (res.ok) {
+          showStatus('success', 'Workflow started. Check Webflow in a few minutes for the draft.');
+        } else {
+          const txt = await res.text();
+          showStatus('error', `n8n returned ${res.status}: ${txt}`);
+        }
+      } catch (err) {
+        showStatus('error', `Could not reach n8n: ${err.message}`);
+      }
+
+      btn.disabled = false;
+    }
+
+    function showStatus(type, msg) {
+      const el = document.getElementById('status');
+      el.className = 'status ' + type;
+      el.textContent = msg;
+    }
+  </script>
+</body>
+</html>
