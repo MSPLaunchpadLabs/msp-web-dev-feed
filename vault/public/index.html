@@ -15,7 +15,6 @@
       --border:       #222222;
       --teal:         #00d4c8;
       --teal-dim:     rgba(0, 212, 200, 0.08);
-      --teal-glow:    rgba(0, 212, 200, 0.18);
       --s-color:      #ff4444;
       --a-color:      #ff8c3a;
       --b-color:      #ffd166;
@@ -46,7 +45,6 @@
       padding: 52px 24px 36px;
       border-bottom: 1px solid var(--border);
     }
-
     .brand {
       font-size: clamp(22px, 3.5vw, 32px);
       font-weight: 800;
@@ -56,7 +54,6 @@
       margin-bottom: 14px;
       text-shadow: 0 0 40px rgba(0, 212, 200, 0.25);
     }
-
     .header h1 {
       font-size: clamp(22px, 4vw, 32px);
       font-weight: 700;
@@ -64,7 +61,6 @@
       letter-spacing: -0.02em;
       margin-bottom: 10px;
     }
-
     .header-subtitle {
       font-size: 14px;
       color: #909090;
@@ -72,7 +68,6 @@
       margin: 14px auto 16px;
       line-height: 1.7;
     }
-
     .auto-badge {
       display: inline-flex;
       align-items: center;
@@ -85,20 +80,15 @@
       padding: 5px 14px;
       margin-bottom: 18px;
     }
-
     .auto-badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
+      width: 6px; height: 6px; border-radius: 50%;
       background: var(--teal);
       animation: pulse 2s infinite;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--teal); }
       50%       { opacity: 0.3; box-shadow: none; }
     }
-
     .header-meta {
       font-size: 13px;
       color: var(--muted);
@@ -107,7 +97,6 @@
       justify-content: center;
       gap: 10px;
     }
-
     .header-meta span { color: var(--border); }
 
     /* ── Layout ── */
@@ -124,13 +113,10 @@
       gap: 12px;
       margin: 48px 0 20px;
     }
-
     .tier-heading:first-child { margin-top: 0; }
-
     .tier-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
     .tier-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
     .tier-line  { flex: 1; height: 1px; background: var(--border); }
-
     .tier-s .tier-dot   { background: var(--s-color); box-shadow: 0 0 8px var(--s-color); }
     .tier-s .tier-label { color: var(--s-color); }
     .tier-a .tier-dot   { background: var(--a-color); box-shadow: 0 0 8px var(--a-color); }
@@ -147,9 +133,7 @@
       overflow: hidden;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-
     .card:hover { border-color: #2a2a2a; }
-
     .card-s { box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 20px rgba(255,68,68,0.08); }
     .card-s:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,68,68,0.14); }
     .card-a { box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 20px rgba(255,140,58,0.08); }
@@ -162,253 +146,126 @@
     .card-a .card-accent { background: var(--a-color); }
     .card-b .card-accent { background: var(--b-color); }
 
-    .card-body { padding: 22px 24px 20px; }
+    .card-body { padding: 20px 22px 20px; }
 
-    /* ── Card header ── */
-    .card-header {
+    /* ── Card top row: tier badge + source + arrow ── */
+    .card-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
     }
+    .card-top-left { display: flex; align-items: center; gap: 8px; }
 
     .tier-badge {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 4px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px;
     }
-
-    .badge-s { background: rgba(255,68,68,0.12);    color: var(--s-color); }
-    .badge-a { background: rgba(255,140,58,0.12);   color: var(--a-color); }
-    .badge-b { background: rgba(255,209,102,0.10);  color: var(--b-color); }
-
-    .pipeline-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge-s { background: rgba(255,68,68,0.12);   color: var(--s-color); }
+    .badge-a { background: rgba(255,140,58,0.12);  color: var(--a-color); }
+    .badge-b { background: rgba(255,209,102,0.10); color: var(--b-color); }
 
     .pipeline-badge {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--muted);
       background: rgba(255,255,255,0.05);
-      padding: 3px 9px;
-      border-radius: 4px;
+      padding: 3px 9px; border-radius: 4px;
       border: 1px solid var(--border);
     }
 
-    .pipeline-compression {
-      font-size: 10px;
+    .card-top-right { display: flex; align-items: center; gap: 8px; }
+
+    .source-tag {
+      font-size: 10px; font-weight: 600;
       color: var(--teal);
-      opacity: 0.75;
-      text-align: right;
-      max-width: 220px;
+      background: var(--teal-dim);
+      border: 1px solid rgba(0,212,200,0.15);
+      padding: 3px 9px; border-radius: 4px;
     }
 
-    /* ── Title & summary ── */
+    .source-arrow {
+      display: flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      text-decoration: none;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+    .source-arrow:hover {
+      color: var(--teal);
+      border-color: rgba(0,212,200,0.3);
+      background: var(--teal-dim);
+    }
+
+    /* ── Title ── */
     .card-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.35;
+      font-size: 17px; font-weight: 700;
+      color: #ffffff; line-height: 1.35;
       letter-spacing: -0.01em;
       margin-bottom: 8px;
     }
 
-    .card-summary {
+    /* ── Benefit line ── */
+    .card-benefit {
       font-size: 14px;
-      color: var(--muted);
+      color: #b0b0b0;
+      line-height: 1.55;
       margin-bottom: 16px;
-      line-height: 1.6;
     }
 
-    /* ── Implementation breakdown ── */
-    .impl-breakdown {
+    /* ── Stats row ── */
+    .card-stats {
       display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-
-    .impl-step {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex: 1;
-      min-width: 60px;
-    }
-
-    .impl-step.total {
-      background: rgba(0,212,200,0.06);
-      border-color: rgba(0,212,200,0.18);
-    }
-
-    .impl-step-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .impl-step-value {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .impl-step.total .impl-step-value { color: var(--teal); }
-
-    /* ── ROI + Impact metrics ── */
-    .metrics {
-      display: flex;
+      align-items: center;
       gap: 8px;
       flex-wrap: wrap;
       margin-bottom: 16px;
     }
-
-    .metric {
+    .stat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px; font-weight: 600;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 7px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 90px;
-    }
-
-    .metric-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-    .metric-value { font-size: 13px; font-weight: 600; color: var(--text); }
-    .metric-value.teal { color: var(--teal); }
-
-    .stars     { color: var(--teal); letter-spacing: 1px; }
-    .stars-dim { color: #333; }
-
-    /* ── Impact projection ── */
-    .impact-proj {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 0;
-    }
-
-    .impact-stat {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 7px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex: 1;
-      min-width: 110px;
-    }
-
-    .impact-stat-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-    .impact-stat-value { font-size: 13px; font-weight: 700; color: var(--teal); }
-    .impact-stat-value.neutral { color: #444; }
-
-    /* ── Section blocks ── */
-    .section { margin-bottom: 16px; }
-
-    .section-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .why-text {
-      font-size: 14px;
-      color: #c0c0c0;
-      background: var(--surface);
-      border-left: 2px solid var(--teal);
-      padding: 10px 14px;
-      border-radius: 0 6px 6px 0;
-      line-height: 1.6;
-    }
-
-    .todo-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-
-    .todo-list li {
-      display: flex;
-      gap: 10px;
-      font-size: 14px;
-      color: #c0c0c0;
-      line-height: 1.55;
-    }
-
-    .todo-num {
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 2px;
-    }
-
-    /* ── Compatibility ── */
-    .compat-grid { display: flex; flex-wrap: wrap; gap: 7px; }
-
-    .compat-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
       padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      border: 1px solid transparent;
+      color: var(--text);
     }
+    .stat-chip .stat-icon { font-size: 11px; opacity: 0.6; }
+    .stat-chip.roi-chip .stat-val { color: var(--teal); }
 
-    .compat-badge .tool { color: var(--muted); font-weight: 500; }
-    .compat-yes     { background: var(--yes-bg);    border-color: rgba(0,212,200,0.2); }
-    .compat-yes     .status { color: var(--yes-text); }
-    .compat-partial { background: var(--partial-bg); border-color: rgba(255,140,58,0.2); }
-    .compat-partial .status { color: var(--partial-text); }
-    .compat-no      { background: var(--no-bg);     border-color: var(--border); }
-    .compat-no      .status { color: var(--no-text); }
+    .fit-stars { display: inline-flex; align-items: center; gap: 2px; font-size: 13px; }
+    .fit-stars .star-on  { color: var(--teal); }
+    .fit-stars .star-off { color: #333; }
 
-    /* ── Source tag ── */
-    .source-row {
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    /* ── View Guide button ── */
+    .view-guide-btn {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: transparent;
+      border: 1px solid rgba(0,212,200,0.2);
+      border-radius: 8px;
+      color: var(--teal);
+      font-family: inherit;
+      font-size: 13px; font-weight: 700;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      letter-spacing: 0.03em;
     }
-
-    .source-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #444; }
-
-    .source-tag {
-      font-size: 10px;
-      color: #555;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2px 8px;
+    .view-guide-btn:hover {
+      background: var(--teal-dim);
+      border-color: rgba(0,212,200,0.4);
     }
-
-    .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    .view-guide-btn .btn-arrow { font-size: 16px; }
 
     /* ── Footer ── */
     .footer {
@@ -419,17 +276,150 @@
       color: var(--muted);
       letter-spacing: 0.05em;
     }
-
     .footer strong { color: var(--teal); }
 
+    /* ── Drawer overlay ── */
+    #detail-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+    #detail-overlay.visible { display: block; }
+
+    /* ── Drawer panel ── */
+    #detail-drawer {
+      position: fixed; right: 0; top: 0; bottom: 0;
+      width: 560px; z-index: 400;
+      background: #0e0e0e;
+      border-left: 1px solid #222;
+      box-shadow: -12px 0 48px rgba(0,0,0,0.7);
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      overflow: hidden;
+    }
+    #detail-drawer.open { transform: translateX(0); }
+
+    #drawer-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid #1e1e1e;
+      display: flex; align-items: flex-start; gap: 12px;
+      flex-shrink: 0;
+    }
+    #drawer-title-area { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    #drawer-title { font-size: 15px; font-weight: 800; color: #f0f0f0; line-height: 1.4; }
+    #drawer-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    #drawer-tier-badge {}
+    #drawer-pipeline { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    #drawer-close {
+      background: none;
+      border: 1px solid #2a2a2a;
+      color: #555;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px; line-height: 1;
+      transition: all 0.12s;
+      flex-shrink: 0;
+      padding: 5px 9px;
+    }
+    #drawer-close:hover { color: #f0f0f0; border-color: #444; }
+
+    #drawer-body {
+      flex: 1; overflow-y: auto; padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: #2a2a2a transparent;
+    }
+
+    /* ── Drawer sections ── */
+    .dsec {
+      padding: 16px 20px;
+      border-bottom: 1px solid #181818;
+    }
+    .dsec-label {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #444; margin-bottom: 10px;
+    }
+    .dsec-text {
+      font-size: 13px; color: #909090; line-height: 1.65;
+    }
+    .dsec-steps { display: flex; flex-direction: column; gap: 10px; }
+    .dsec-step {
+      display: flex; gap: 12px;
+      font-size: 13px; color: #909090; line-height: 1.55;
+    }
+    .dsec-step-num {
+      flex-shrink: 0;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      font-size: 10px; font-weight: 700; color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+
+    .dsec-impl-grid {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .dsec-impl-chip {
+      background: #1a1a1a;
+      border: 1px solid #242424;
+      border-radius: 6px;
+      padding: 6px 10px;
+      display: flex; flex-direction: column; gap: 2px;
+      flex: 1; min-width: 55px;
+    }
+    .dsec-impl-chip.total {
+      background: rgba(0,212,200,0.06);
+      border-color: rgba(0,212,200,0.18);
+    }
+    .dsec-impl-lbl {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #444;
+    }
+    .dsec-impl-val {
+      font-size: 12px; font-weight: 700; color: #c0c0c0;
+    }
+    .dsec-impl-chip.total .dsec-impl-val { color: var(--teal); }
+
+    .dsec-impact-grid { display: flex; gap: 6px; flex-wrap: wrap; }
+    .dsec-impact-stat {
+      background: #1a1a1a;
+      border: 1px solid #242424;
+      border-radius: 6px;
+      padding: 7px 12px;
+      display: flex; flex-direction: column; gap: 2px;
+      flex: 1; min-width: 100px;
+    }
+    .dsec-impact-lbl { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #444; }
+    .dsec-impact-val { font-size: 13px; font-weight: 700; color: var(--teal); }
+    .dsec-impact-val.neutral { color: #333; }
+
+    .dsec-compat { display: flex; flex-wrap: wrap; gap: 7px; }
+    .compat-badge {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 10px; border-radius: 6px;
+      font-size: 12px; font-weight: 600;
+      border: 1px solid transparent;
+    }
+    .compat-badge .tool { color: var(--muted); font-weight: 500; }
+    .compat-yes     { background: var(--yes-bg);    border-color: rgba(0,212,200,0.2); }
+    .compat-yes     .status { color: var(--yes-text); }
+    .compat-partial { background: var(--partial-bg); border-color: rgba(255,140,58,0.2); }
+    .compat-partial .status { color: var(--partial-text); }
+    .compat-no      { background: var(--no-bg);     border-color: var(--border); }
+    .compat-no      .status { color: var(--no-text); }
+
     /* ── Responsive ── */
-    @media (max-width: 560px) {
-      .card-body { padding: 18px 16px 16px; }
-      .impl-breakdown, .metrics, .impact-proj { flex-direction: column; }
-      .impl-step, .impact-stat, .metric { min-width: unset; }
-      .card-header { flex-direction: column; align-items: flex-start; }
-      .pipeline-wrap { align-items: flex-start; }
-      .pipeline-compression { text-align: left; max-width: 100%; }
+    @media (max-width: 600px) {
+      #detail-drawer { width: 100%; }
+      .card-body { padding: 16px; }
+    }
+    @media (max-width: 400px) {
+      .card-stats { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -438,7 +428,7 @@
   <header class="header">
     <div class="brand">MSP Launchpad</div>
     <h1>🚀 Web Dev Intelligence Feed</h1>
-    <p class="header-subtitle">A real-time, action-driven feed that tracks critical web development changes and turns them into immediate tasks for the team. Updated every Monday, each item is prioritized by impact, ROI, and implementation effort—so you know exactly what to fix, optimize, or adopt to protect performance, rankings, and build efficiency.</p>
+    <p class="header-subtitle">A real-time, action-driven feed that tracks critical web development changes and turns them into immediate tasks for the team. Updated every Monday, each item is prioritized by impact, ROI, and implementation effort.</p>
     <div class="auto-badge"><div class="auto-badge-dot"></div>Auto-generated by Claude AI agent · Every Monday 08:00</div>
     <div class="header-meta">
       Week of 2026-05-04 <span>·</span> 7 items <span>·</span> CTO Intelligence Drop
@@ -458,72 +448,27 @@
     <article class="card card-s">
       <div class="card-accent"></div>
       <div class="card-body">
-        <div class="card-header">
-          <span class="tier-badge badge-s">🔴 S Tier</span>
-          <div class="pipeline-wrap">
+        <div class="card-top">
+          <div class="card-top-left">
+            <span class="tier-badge badge-s">S Tier</span>
             <span class="pipeline-badge">QA → Performance</span>
-            <span class="pipeline-compression">Compression: ~3h/site saved in reactive post-launch SEO fixes</span>
+          </div>
+          <div class="card-top-right">
+            <span class="source-tag">web.dev / Google</span>
+            <a class="source-arrow" href="https://web.dev/blog" target="_blank" rel="noopener" title="Open source">↗</a>
           </div>
         </div>
         <h2 class="card-title">INP Is Now a Ranking Signal — Interactivity Delays Cost You Positions</h2>
-        <p class="card-summary">Google elevated INP to an equal Core Web Vitals ranking factor and tightened the LCP "Good" threshold from 2.5s → 2.0s. Sites saw 0.8–4 position drops after the March 2026 core update.</p>
-
-        <div class="impl-breakdown">
-          <div class="impl-step"><span class="impl-step-label">Research</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Build</span><span class="impl-step-value">—</span></div>
-          <div class="impl-step"><span class="impl-step-label">QA</span><span class="impl-step-value">4h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Rollout</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step total"><span class="impl-step-label">Total</span><span class="impl-step-value">6h / site</span></div>
+        <p class="card-benefit">Audit all active client sites now — LCP thresholds tightened and every INP miss is costing real positions.</p>
+        <div class="card-stats">
+          <span class="stat-chip"><span class="stat-icon">⏱</span> 6h / site</span>
+          <span class="stat-chip roi-chip">ROI: <span class="stat-val">Immediate</span></span>
+          <span class="stat-chip">Fit: <span class="fit-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span></span></span>
         </div>
-
-        <div class="metrics">
-          <div class="metric"><span class="metric-label">ROI</span><span class="metric-value teal">Immediate</span></div>
-          <div class="metric"><span class="metric-label">Impact</span><span class="metric-value"><span class="stars">★★★★★</span></span></div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">Impact Projection</div>
-          <div class="impact-proj">
-            <div class="impact-stat"><span class="impact-stat-label">Build Speed</span><span class="impact-stat-value neutral">—</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">QA Pass Rate</span><span class="impact-stat-value">+15%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">Page Performance</span><span class="impact-stat-value">+20%</span></div>
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Why this matters</div>
-          <div class="why-text">Sites delivered to "Good" LCP spec are now in "Needs Improvement" — any heavy click/input handler is a ranking liability, not just a UX issue.</div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">What to do</div>
-          <ul class="todo-list">
-            <li><span class="todo-num">1</span>Run CrUX field data check on all active client sites via PageSpeed Insights — flag any with INP &gt;200ms or LCP 2.0–2.5s.</li>
-            <li><span class="todo-num">2</span>Add INP to standard QA checklist: audit heavy event handlers (scroll, input, resize), defer non-critical JS, move long tasks off the main thread.</li>
-            <li><span class="todo-num">3</span>Update SLA/deliverable spec: LCP &lt;2.0s and INP &lt;200ms are now the contractual baseline, not stretch goals.</li>
-          </ul>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Compatibility</div>
-          <div class="compat-grid">
-            <div class="compat-badge compat-partial"><span class="tool">Webflow</span><span class="status">Partial</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Figma</span><span class="status">No</span></div>
-            <div class="compat-badge compat-no"><span class="tool">n8n</span><span class="status">No</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">Cloudflare</span><span class="status">Yes</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">Playwright</span><span class="status">Yes</span></div>
-          </div>
-        </div>
-
-        <div class="source-row">
-          <span class="source-label">Source</span>
-          <span class="source-tag">web.dev/blog</span>
-          <span class="source-tag">Google Search Central</span>
-        </div>
+        <button class="view-guide-btn" onclick="openDrawer(0)">
+          <span>View Guide</span>
+          <span class="btn-arrow">→</span>
+        </button>
       </div>
     </article>
 
@@ -531,73 +476,27 @@
     <article class="card card-s">
       <div class="card-accent"></div>
       <div class="card-body">
-        <div class="card-header">
-          <span class="tier-badge badge-s">🔴 S Tier</span>
-          <div class="pipeline-wrap">
-            <span class="pipeline-badge">Webflow Build → Client Handoff</span>
-            <span class="pipeline-compression">Compression: prevents 4–8h emergency support per unmigrated client</span>
+        <div class="card-top">
+          <div class="card-top-left">
+            <span class="tier-badge badge-s">S Tier</span>
+            <span class="pipeline-badge">Webflow Build → Handoff</span>
+          </div>
+          <div class="card-top-right">
+            <span class="source-tag">Webflow Changelog</span>
+            <a class="source-arrow" href="https://webflow.com/updates" target="_blank" rel="noopener" title="Open source">↗</a>
           </div>
         </div>
         <h2 class="card-title">Webflow Legacy Editor Retires August 4, 2026 — You Have 95 Days</h2>
-        <p class="card-summary">Webflow is sunsetting the legacy Editor with no grandfathering. All client sites on the old Editor lose editing capability on that date. Hard, non-negotiable deadline.</p>
-
-        <div class="impl-breakdown">
-          <div class="impl-step"><span class="impl-step-label">Research</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Build</span><span class="impl-step-value">2h</span></div>
-          <div class="impl-step"><span class="impl-step-label">QA</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Rollout</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step total"><span class="impl-step-label">Total</span><span class="impl-step-value">5h / site</span></div>
+        <p class="card-benefit">Migrate every client site off the legacy Editor before August 4 — there is no grandfathering and no grace period.</p>
+        <div class="card-stats">
+          <span class="stat-chip"><span class="stat-icon">⏱</span> 5h / site</span>
+          <span class="stat-chip roi-chip">ROI: <span class="stat-val">Immediate</span></span>
+          <span class="stat-chip">Fit: <span class="fit-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span></span></span>
         </div>
-
-        <div class="metrics">
-          <div class="metric"><span class="metric-label">ROI</span><span class="metric-value teal">Immediate</span></div>
-          <div class="metric"><span class="metric-label">Impact</span><span class="metric-value"><span class="stars">★★★★★</span></span></div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">Impact Projection</div>
-          <div class="impact-proj">
-            <div class="impact-stat"><span class="impact-stat-label">Build Speed</span><span class="impact-stat-value neutral">—</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">QA Pass Rate</span><span class="impact-stat-value">+5%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">Page Performance</span><span class="impact-stat-value neutral">—</span></div>
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Why this matters</div>
-          <div class="why-text">Any unmigrated client site breaks for the end-client on August 4 — that support emergency lands on us, not Webflow.</div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">What to do</div>
-          <ul class="todo-list">
-            <li><span class="todo-num">1</span>Today: Audit all active Webflow client sites — tag which are on legacy Editor (Webflow Dashboard → Editor access type).</li>
-            <li><span class="todo-num">2</span>Build a migration runbook now — test with one site, document UI delta for client-facing training.</li>
-            <li><span class="todo-num">3</span>Set internal deadline of July 1 for all migrations complete — 5 weeks buffer for stragglers.</li>
-            <li><span class="todo-num">4</span>Notify affected clients this week; frame as a free Editor upgrade, not a crisis.</li>
-          </ul>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Compatibility</div>
-          <div class="compat-grid">
-            <div class="compat-badge compat-yes"><span class="tool">Webflow</span><span class="status">Yes</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Figma</span><span class="status">No</span></div>
-            <div class="compat-badge compat-no"><span class="tool">n8n</span><span class="status">No</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Cloudflare</span><span class="status">No</span></div>
-            <div class="compat-badge compat-partial"><span class="tool">Playwright</span><span class="status">Partial</span></div>
-          </div>
-        </div>
-
-        <div class="source-row">
-          <span class="source-label">Source</span>
-          <span class="source-tag">Webflow Changelog</span>
-          <span class="source-tag">webflow.com/updates</span>
-        </div>
+        <button class="view-guide-btn" onclick="openDrawer(1)">
+          <span>View Guide</span>
+          <span class="btn-arrow">→</span>
+        </button>
       </div>
     </article>
 
@@ -612,73 +511,27 @@
     <article class="card card-a">
       <div class="card-accent"></div>
       <div class="card-body">
-        <div class="card-header">
-          <span class="tier-badge badge-a">🟠 A Tier</span>
-          <div class="pipeline-wrap">
+        <div class="card-top">
+          <div class="card-top-left">
+            <span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">10-Template → Webflow Build</span>
-            <span class="pipeline-compression">Compression: removes 2–3h/project of CMS workaround architecture</span>
+          </div>
+          <div class="card-top-right">
+            <span class="source-tag">Webflow Updates</span>
+            <a class="source-arrow" href="https://webflow.com/updates" target="_blank" rel="noopener" title="Open source">↗</a>
           </div>
         </div>
         <h2 class="card-title">Webflow CMS Doubles Its Limits + Claude Codegen: Rebuild Your Template Architecture</h2>
-        <p class="card-summary">Next-gen CMS supports 40 Collection Lists/page (up from 20), 10 nested lists, and 100 items per nested list. Claude-powered React component generation is live on-canvas.</p>
-
-        <div class="impl-breakdown">
-          <div class="impl-step"><span class="impl-step-label">Research</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Build</span><span class="impl-step-value">4h</span></div>
-          <div class="impl-step"><span class="impl-step-label">QA</span><span class="impl-step-value">2h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Rollout</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step total"><span class="impl-step-label">Total</span><span class="impl-step-value">8h</span></div>
+        <p class="card-benefit">Rebuild your CMS-heavy templates — Webflow now supports 2× the Collection Lists with native nesting and no workarounds.</p>
+        <div class="card-stats">
+          <span class="stat-chip"><span class="stat-icon">⏱</span> 8h</span>
+          <span class="stat-chip roi-chip">ROI: <span class="stat-val">High</span></span>
+          <span class="stat-chip">Fit: <span class="fit-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-off">★</span></span></span>
         </div>
-
-        <div class="metrics">
-          <div class="metric"><span class="metric-label">ROI</span><span class="metric-value teal">High</span></div>
-          <div class="metric"><span class="metric-label">Impact</span><span class="metric-value"><span class="stars">★★★★</span><span class="stars-dim">★</span></span></div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">Impact Projection</div>
-          <div class="impact-proj">
-            <div class="impact-stat"><span class="impact-stat-label">Build Speed</span><span class="impact-stat-value">+20%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">QA Pass Rate</span><span class="impact-stat-value">+10%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">Page Performance</span><span class="impact-stat-value">+5%</span></div>
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Why this matters</div>
-          <div class="why-text">Workarounds baked into our 10-template system — pagination hacks, multi-page splits, external CMS offloads — can now be eliminated. Cleaner sites, faster builds.</div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">What to do</div>
-          <ul class="todo-list">
-            <li><span class="todo-num">1</span>Audit the 10 standard templates — flag every CMS workaround tied to the old 20-list limit.</li>
-            <li><span class="todo-num">2</span>Rebuild 2–3 most-used dynamic templates with native nested lists: blog + categories, portfolio + tags, team directories.</li>
-            <li><span class="todo-num">3</span>Evaluate Claude CMS chat for client onboarding — could cut "how do I add a blog post" support tickets.</li>
-            <li><span class="todo-num">4</span>Do NOT roll out Claude codegen to client sites yet — internal R&D only for 30 days.</li>
-          </ul>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Compatibility</div>
-          <div class="compat-grid">
-            <div class="compat-badge compat-yes"><span class="tool">Webflow</span><span class="status">Yes</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Figma</span><span class="status">No</span></div>
-            <div class="compat-badge compat-partial"><span class="tool">n8n</span><span class="status">Partial</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Cloudflare</span><span class="status">No</span></div>
-            <div class="compat-badge compat-partial"><span class="tool">Playwright</span><span class="status">Partial</span></div>
-          </div>
-        </div>
-
-        <div class="source-row">
-          <span class="source-label">Source</span>
-          <span class="source-tag">Webflow Updates</span>
-          <span class="source-tag">Webflow Blog</span>
-        </div>
+        <button class="view-guide-btn" onclick="openDrawer(2)">
+          <span>View Guide</span>
+          <span class="btn-arrow">→</span>
+        </button>
       </div>
     </article>
 
@@ -686,74 +539,27 @@
     <article class="card card-a">
       <div class="card-accent"></div>
       <div class="card-body">
-        <div class="card-header">
-          <span class="tier-badge badge-a">🟠 A Tier</span>
-          <div class="pipeline-wrap">
+        <div class="card-top">
+          <div class="card-top-left">
+            <span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">Webflow Build → QA</span>
-            <span class="pipeline-compression">Compression: removes ~2h/component of JS debugging</span>
+          </div>
+          <div class="card-top-right">
+            <span class="source-tag">Chrome Dev Blog</span>
+            <a class="source-arrow" href="https://developer.chrome.com/blog" target="_blank" rel="noopener" title="Open source">↗</a>
           </div>
         </div>
         <h2 class="card-title">CSS 2026 Wave: Eliminate JavaScript From 40% of Your UI Components</h2>
-        <p class="card-summary">Chrome shipped 22 major CSS features including native carousels, customizable &lt;select&gt;, the if() conditional function, MPA View Transitions — all without JavaScript.</p>
-
-        <div class="impl-breakdown">
-          <div class="impl-step"><span class="impl-step-label">Research</span><span class="impl-step-value">2h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Build</span><span class="impl-step-value">8h</span></div>
-          <div class="impl-step"><span class="impl-step-label">QA</span><span class="impl-step-value">4h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Rollout</span><span class="impl-step-value">2h</span></div>
-          <div class="impl-step total"><span class="impl-step-label">Total</span><span class="impl-step-value">16h</span></div>
+        <p class="card-benefit">Strip JavaScript from 40% of your UI components — Chrome's 2026 CSS wave makes most JS UI patterns obsolete.</p>
+        <div class="card-stats">
+          <span class="stat-chip"><span class="stat-icon">⏱</span> 16h</span>
+          <span class="stat-chip roi-chip">ROI: <span class="stat-val">High</span></span>
+          <span class="stat-chip">Fit: <span class="fit-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-off">★</span></span></span>
         </div>
-
-        <div class="metrics">
-          <div class="metric"><span class="metric-label">ROI</span><span class="metric-value teal">High</span></div>
-          <div class="metric"><span class="metric-label">Impact</span><span class="metric-value"><span class="stars">★★★★</span><span class="stars-dim">★</span></span></div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">Impact Projection</div>
-          <div class="impact-proj">
-            <div class="impact-stat"><span class="impact-stat-label">Build Speed</span><span class="impact-stat-value">+15%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">QA Pass Rate</span><span class="impact-stat-value">+8%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">Page Performance</span><span class="impact-stat-value">+12%</span></div>
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Why this matters</div>
-          <div class="why-text">Every JS-dependent UI component adds to INP risk, bundle size, and maintenance surface. Native CSS equivalents run on the GPU with zero parse cost.</div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">What to do</div>
-          <ul class="todo-list">
-            <li><span class="todo-num">1</span>Audit shared component library — flag carousels, accordions, tabs, and animated lists that rely on JS or GSAP.</li>
-            <li><span class="todo-num">2</span>Rebuild carousels using ::scroll-button / ::scroll-marker — test in Chrome 135+ before shipping.</li>
-            <li><span class="todo-num">3</span>Use if() + @media for responsive variants currently done in JS.</li>
-            <li><span class="todo-num">4</span>Gate MPA View Transitions with @supports — progressive enhancement only, not a hard dependency.</li>
-            <li><span class="todo-num">5</span>Delivery path: Webflow Custom Code embed — not all features map to Designer natively.</li>
-          </ul>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Compatibility</div>
-          <div class="compat-grid">
-            <div class="compat-badge compat-partial"><span class="tool">Webflow</span><span class="status">Partial</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Figma</span><span class="status">No</span></div>
-            <div class="compat-badge compat-no"><span class="tool">n8n</span><span class="status">No</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Cloudflare</span><span class="status">No</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">Playwright</span><span class="status">Yes</span></div>
-          </div>
-        </div>
-
-        <div class="source-row">
-          <span class="source-label">Source</span>
-          <span class="source-tag">Chrome Developer Blog</span>
-          <span class="source-tag">caniuse.com</span>
-        </div>
+        <button class="view-guide-btn" onclick="openDrawer(3)">
+          <span>View Guide</span>
+          <span class="btn-arrow">→</span>
+        </button>
       </div>
     </article>
 
@@ -761,73 +567,27 @@
     <article class="card card-a">
       <div class="card-accent"></div>
       <div class="card-body">
-        <div class="card-header">
-          <span class="tier-badge badge-a">🟠 A Tier</span>
-          <div class="pipeline-wrap">
+        <div class="card-top">
+          <div class="card-top-left">
+            <span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">10-Template → CMS Selection</span>
-            <span class="pipeline-compression">Compression: saves $300+/mo per project + ~1h billing triage</span>
+          </div>
+          <div class="card-top-right">
+            <span class="source-tag">Contentful / Sanity</span>
+            <a class="source-arrow" href="https://www.contentful.com/pricing/" target="_blank" rel="noopener" title="Open source">↗</a>
           </div>
         </div>
         <h2 class="card-title">Contentful Kills Free Tier — Audit Every Client Stack Now</h2>
-        <p class="card-summary">Contentful's minimum is now $300/month. Any client or internal project on a free/low-cost plan is dead or billing unexpectedly. Sanity and Payload are the replacements.</p>
-
-        <div class="impl-breakdown">
-          <div class="impl-step"><span class="impl-step-label">Research</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Build</span><span class="impl-step-value">2h</span></div>
-          <div class="impl-step"><span class="impl-step-label">QA</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Rollout</span><span class="impl-step-value">2h</span></div>
-          <div class="impl-step total"><span class="impl-step-label">Total</span><span class="impl-step-value">6h</span></div>
+        <p class="card-benefit">Audit every client stack for Contentful today — the free tier is gone and the minimum is now $300/month.</p>
+        <div class="card-stats">
+          <span class="stat-chip"><span class="stat-icon">⏱</span> 6h</span>
+          <span class="stat-chip roi-chip">ROI: <span class="stat-val">Immediate</span></span>
+          <span class="stat-chip">Fit: <span class="fit-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-off">★</span></span></span>
         </div>
-
-        <div class="metrics">
-          <div class="metric"><span class="metric-label">ROI</span><span class="metric-value teal">Immediate</span></div>
-          <div class="metric"><span class="metric-label">Impact</span><span class="metric-value"><span class="stars">★★★★</span><span class="stars-dim">★</span></span></div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">Impact Projection</div>
-          <div class="impact-proj">
-            <div class="impact-stat"><span class="impact-stat-label">Build Speed</span><span class="impact-stat-value">+5%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">QA Pass Rate</span><span class="impact-stat-value">+5%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">Page Performance</span><span class="impact-stat-value neutral">—</span></div>
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Why this matters</div>
-          <div class="why-text">A client discovering their CMS bill tripled is a trust failure — recommending Contentful to cost-sensitive clients is now a direct liability.</div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">What to do</div>
-          <ul class="todo-list">
-            <li><span class="todo-num">1</span>Audit all active client and internal projects using Contentful — verify billing status this week.</li>
-            <li><span class="todo-num">2</span>Evaluate migration to Sanity (visual editing, click-from-preview) or Payload (self-hosted, zero per-seat cost).</li>
-            <li><span class="todo-num">3</span>Update CMS framework: Sanity = content-heavy; Payload = budget-sensitive; Contentful = enterprise only.</li>
-            <li><span class="todo-num">4</span>Remove Contentful from the new-project proposal template immediately.</li>
-          </ul>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Compatibility</div>
-          <div class="compat-grid">
-            <div class="compat-badge compat-partial"><span class="tool">Webflow</span><span class="status">Partial</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Figma</span><span class="status">No</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">n8n</span><span class="status">Yes</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">Cloudflare</span><span class="status">Yes</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">Playwright</span><span class="status">Yes</span></div>
-          </div>
-        </div>
-
-        <div class="source-row">
-          <span class="source-label">Source</span>
-          <span class="source-tag">Contentful Pricing Page</span>
-          <span class="source-tag">Sanity.io Blog</span>
-        </div>
+        <button class="view-guide-btn" onclick="openDrawer(4)">
+          <span>View Guide</span>
+          <span class="btn-arrow">→</span>
+        </button>
       </div>
     </article>
 
@@ -842,72 +602,27 @@
     <article class="card card-b">
       <div class="card-accent"></div>
       <div class="card-body">
-        <div class="card-header">
-          <span class="tier-badge badge-b">🟡 B Tier</span>
-          <div class="pipeline-wrap">
-            <span class="pipeline-badge">Webflow Build (Headless Only)</span>
-            <span class="pipeline-compression">Compression: saves ~2h/week dev idle time on large headless builds</span>
+        <div class="card-top">
+          <div class="card-top-left">
+            <span class="tier-badge badge-b">B Tier</span>
+            <span class="pipeline-badge">Webflow Build (Headless)</span>
+          </div>
+          <div class="card-top-right">
+            <span class="source-tag">Vercel Blog</span>
+            <a class="source-arrow" href="https://vercel.com/blog" target="_blank" rel="noopener" title="Open source">↗</a>
           </div>
         </div>
         <h2 class="card-title">Next.js 16.2 — 400% Faster Dev Startup Removes the Slow Build Objection</h2>
-        <p class="card-summary">~400% faster dev server startup and ~50% faster rendering via Turbopack, with 200+ bug fixes and stable Server Fast Refresh.</p>
-
-        <div class="impl-breakdown">
-          <div class="impl-step"><span class="impl-step-label">Research</span><span class="impl-step-value">0.5h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Build</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step"><span class="impl-step-label">QA</span><span class="impl-step-value">0.5h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Rollout</span><span class="impl-step-value">—</span></div>
-          <div class="impl-step total"><span class="impl-step-label">Total</span><span class="impl-step-value">2h</span></div>
+        <p class="card-benefit">Upgrade active Next.js projects now — Turbopack cuts dev startup by 400% with a one-line version bump.</p>
+        <div class="card-stats">
+          <span class="stat-chip"><span class="stat-icon">⏱</span> 2h</span>
+          <span class="stat-chip roi-chip">ROI: <span class="stat-val" style="color:var(--muted)">Medium</span></span>
+          <span class="stat-chip">Fit: <span class="fit-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-off">★</span><span class="star-off">★</span></span></span>
         </div>
-
-        <div class="metrics">
-          <div class="metric"><span class="metric-label">ROI</span><span class="metric-value">Medium</span></div>
-          <div class="metric"><span class="metric-label">Impact</span><span class="metric-value"><span class="stars">★★★</span><span class="stars-dim">★★</span></span></div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">Impact Projection</div>
-          <div class="impact-proj">
-            <div class="impact-stat"><span class="impact-stat-label">Build Speed</span><span class="impact-stat-value">+40%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">QA Pass Rate</span><span class="impact-stat-value">+5%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">Page Performance</span><span class="impact-stat-value neutral">—</span></div>
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Why this matters</div>
-          <div class="why-text">For headless projects running Next.js alongside Webflow or a headless CMS, the inner-loop speed improvement compounds across every dev session.</div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">What to do</div>
-          <ul class="todo-list">
-            <li><span class="todo-num">1</span>Upgrade active Next.js projects: npm install next@latest — test Turbopack compatibility with custom webpack configs.</li>
-            <li><span class="todo-num">2</span>If Turbopack breaks anything, fall back via --no-turbopack — don't block a client delivery on it.</li>
-            <li><span class="todo-num">3</span>Skip Agent DevTools — experimental, no production ROI yet.</li>
-          </ul>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Compatibility</div>
-          <div class="compat-grid">
-            <div class="compat-badge compat-no"><span class="tool">Webflow</span><span class="status">No</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Figma</span><span class="status">No</span></div>
-            <div class="compat-badge compat-no"><span class="tool">n8n</span><span class="status">No</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">Cloudflare</span><span class="status">Yes</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">Playwright</span><span class="status">Yes</span></div>
-          </div>
-        </div>
-
-        <div class="source-row">
-          <span class="source-label">Source</span>
-          <span class="source-tag">Vercel Blog</span>
-          <span class="source-tag">Next.js Release Notes</span>
-        </div>
+        <button class="view-guide-btn" onclick="openDrawer(5)">
+          <span>View Guide</span>
+          <span class="btn-arrow">→</span>
+        </button>
       </div>
     </article>
 
@@ -915,71 +630,27 @@
     <article class="card card-b">
       <div class="card-accent"></div>
       <div class="card-body">
-        <div class="card-header">
-          <span class="tier-badge badge-b">🟡 B Tier</span>
-          <div class="pipeline-wrap">
+        <div class="card-top">
+          <div class="card-top-left">
+            <span class="tier-badge badge-b">B Tier</span>
             <span class="pipeline-badge">Figma → Design Handoff</span>
-            <span class="pipeline-compression">Compression: reduces API debugging time by ~2h/incident</span>
+          </div>
+          <div class="card-top-right">
+            <span class="source-tag">Figma Release Notes</span>
+            <a class="source-arrow" href="https://www.figma.com/release-notes/" target="_blank" rel="noopener" title="Open source">↗</a>
           </div>
         </div>
         <h2 class="card-title">Figma MCP + Developer Logs: Automation Debugging Now Has a Paper Trail</h2>
-        <p class="card-summary">Figma's REST API logs all activity with MCP and token-type filtering. FigJam added native Mermaid.js rendering and MCP agent integration for architecture diagrams.</p>
-
-        <div class="impl-breakdown">
-          <div class="impl-step"><span class="impl-step-label">Research</span><span class="impl-step-value">0.5h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Build</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step"><span class="impl-step-label">QA</span><span class="impl-step-value">0.5h</span></div>
-          <div class="impl-step"><span class="impl-step-label">Rollout</span><span class="impl-step-value">1h</span></div>
-          <div class="impl-step total"><span class="impl-step-label">Total</span><span class="impl-step-value">3h</span></div>
+        <p class="card-benefit">Enable Figma Developer Logs today — silent API failures finally have a forensic trail you can act on.</p>
+        <div class="card-stats">
+          <span class="stat-chip"><span class="stat-icon">⏱</span> 3h</span>
+          <span class="stat-chip roi-chip">ROI: <span class="stat-val" style="color:var(--muted)">Medium</span></span>
+          <span class="stat-chip">Fit: <span class="fit-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-off">★</span><span class="star-off">★</span></span></span>
         </div>
-
-        <div class="metrics">
-          <div class="metric"><span class="metric-label">ROI</span><span class="metric-value">Medium</span></div>
-          <div class="metric"><span class="metric-label">Impact</span><span class="metric-value"><span class="stars">★★★</span><span class="stars-dim">★★</span></span></div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">Impact Projection</div>
-          <div class="impact-proj">
-            <div class="impact-stat"><span class="impact-stat-label">Build Speed</span><span class="impact-stat-value">+5%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">QA Pass Rate</span><span class="impact-stat-value">+10%</span></div>
-            <div class="impact-stat"><span class="impact-stat-label">Page Performance</span><span class="impact-stat-value neutral">—</span></div>
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Why this matters</div>
-          <div class="why-text">API token abuse and silent automation failures have been a blind spot — Developer Logs gives a forensic trail without building a custom proxy layer.</div>
-        </div>
-
-        <div class="section">
-          <div class="section-label">What to do</div>
-          <ul class="todo-list">
-            <li><span class="todo-num">1</span>Enable Developer Logs in Figma org settings — set alert thresholds for unusual API call volume.</li>
-            <li><span class="todo-num">2</span>For n8n → Figma automation: pipe log data into your n8n error-monitoring flow to catch silent failures.</li>
-            <li><span class="todo-num">3</span>Pilot Mermaid.js diagram generation in FigJam for one client architecture review.</li>
-          </ul>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-          <div class="section-label">Compatibility</div>
-          <div class="compat-grid">
-            <div class="compat-badge compat-no"><span class="tool">Webflow</span><span class="status">No</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">Figma</span><span class="status">Yes</span></div>
-            <div class="compat-badge compat-yes"><span class="tool">n8n</span><span class="status">Yes</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Cloudflare</span><span class="status">No</span></div>
-            <div class="compat-badge compat-no"><span class="tool">Playwright</span><span class="status">No</span></div>
-          </div>
-        </div>
-
-        <div class="source-row">
-          <span class="source-label">Source</span>
-          <span class="source-tag">Figma Release Notes</span>
-        </div>
+        <button class="view-guide-btn" onclick="openDrawer(6)">
+          <span>View Guide</span>
+          <span class="btn-arrow">→</span>
+        </button>
       </div>
     </article>
 
@@ -988,6 +659,220 @@
   <footer class="footer">
     Generated 2026-05-04 &nbsp;·&nbsp; <strong>MSP Launchpad Labs</strong> &nbsp;·&nbsp; CTO Intelligence Feed &nbsp;·&nbsp; Updated every Monday
   </footer>
+
+  <!-- ════════ DRAWER ════════ -->
+  <div id="detail-overlay" onclick="closeDrawer()"></div>
+  <div id="detail-drawer">
+    <div id="drawer-header">
+      <div id="drawer-title-area">
+        <div id="drawer-title"></div>
+        <div id="drawer-meta">
+          <span id="drawer-tier-badge"></span>
+          <span id="drawer-pipeline"></span>
+        </div>
+      </div>
+      <button id="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div id="drawer-body"></div>
+  </div>
+
+  <script>
+    const CARDS = [
+      {
+        title: 'INP Is Now a Ranking Signal — Interactivity Delays Cost You Positions',
+        tier: 's', tierLabel: 'S Tier',
+        pipeline: 'QA → Performance',
+        why: 'Sites delivered to "Good" LCP spec are now in "Needs Improvement" — any heavy click/input handler is a ranking liability, not just a UX issue.',
+        steps: [
+          'Run CrUX field data check on all active client sites via PageSpeed Insights — flag any with INP >200ms or LCP 2.0–2.5s.',
+          'Add INP to standard QA checklist: audit heavy event handlers (scroll, input, resize), defer non-critical JS, move long tasks off the main thread.',
+          'Update SLA/deliverable spec: LCP <2.0s and INP <200ms are now the contractual baseline, not stretch goals.'
+        ],
+        impl: { Research: '1h', Build: '—', QA: '4h', Rollout: '1h', Total: '6h / site' },
+        impact: { 'Build Speed': { val: '—', neutral: true }, 'QA Pass Rate': { val: '+15%' }, 'Page Perf': { val: '+20%' } },
+        compat: { Webflow: 'Partial', Figma: 'No', n8n: 'No', Cloudflare: 'Yes', Playwright: 'Yes' }
+      },
+      {
+        title: 'Webflow Legacy Editor Retires August 4, 2026 — You Have 95 Days',
+        tier: 's', tierLabel: 'S Tier',
+        pipeline: 'Webflow Build → Client Handoff',
+        why: 'Any unmigrated client site breaks for the end-client on August 4 — that support emergency lands on us, not Webflow.',
+        steps: [
+          'Today: Audit all active Webflow client sites — tag which are on legacy Editor (Webflow Dashboard → Editor access type).',
+          'Build a migration runbook now — test with one site, document UI delta for client-facing training.',
+          'Set internal deadline of July 1 for all migrations complete — 5 weeks buffer for stragglers.',
+          'Notify affected clients this week; frame as a free Editor upgrade, not a crisis.'
+        ],
+        impl: { Research: '1h', Build: '2h', QA: '1h', Rollout: '1h', Total: '5h / site' },
+        impact: { 'Build Speed': { val: '—', neutral: true }, 'QA Pass Rate': { val: '+5%' }, 'Page Perf': { val: '—', neutral: true } },
+        compat: { Webflow: 'Yes', Figma: 'No', n8n: 'No', Cloudflare: 'No', Playwright: 'Partial' }
+      },
+      {
+        title: 'Webflow CMS Doubles Its Limits + Claude Codegen: Rebuild Your Template Architecture',
+        tier: 'a', tierLabel: 'A Tier',
+        pipeline: '10-Template → Webflow Build',
+        why: 'Workarounds baked into the 10-template system — pagination hacks, multi-page splits, external CMS offloads — can now be eliminated. Cleaner sites, faster builds.',
+        steps: [
+          'Audit the 10 standard templates — flag every CMS workaround tied to the old 20-list limit.',
+          'Rebuild 2–3 most-used dynamic templates with native nested lists: blog + categories, portfolio + tags, team directories.',
+          'Evaluate Claude CMS chat for client onboarding — could cut "how do I add a blog post" support tickets.',
+          'Do NOT roll out Claude codegen to client sites yet — internal R&D only for 30 days.'
+        ],
+        impl: { Research: '1h', Build: '4h', QA: '2h', Rollout: '1h', Total: '8h' },
+        impact: { 'Build Speed': { val: '+20%' }, 'QA Pass Rate': { val: '+10%' }, 'Page Perf': { val: '+5%' } },
+        compat: { Webflow: 'Yes', Figma: 'No', n8n: 'Partial', Cloudflare: 'No', Playwright: 'Partial' }
+      },
+      {
+        title: 'CSS 2026 Wave: Eliminate JavaScript From 40% of Your UI Components',
+        tier: 'a', tierLabel: 'A Tier',
+        pipeline: 'Webflow Build → QA',
+        why: 'Every JS-dependent UI component adds to INP risk, bundle size, and maintenance surface. Native CSS equivalents run on the GPU with zero parse cost.',
+        steps: [
+          'Audit shared component library — flag carousels, accordions, tabs, and animated lists that rely on JS or GSAP.',
+          'Rebuild carousels using ::scroll-button / ::scroll-marker — test in Chrome 135+ before shipping.',
+          'Use if() + @media for responsive variants currently done in JS.',
+          'Gate MPA View Transitions with @supports — progressive enhancement only, not a hard dependency.',
+          'Delivery path: Webflow Custom Code embed — not all features map to Designer natively.'
+        ],
+        impl: { Research: '2h', Build: '8h', QA: '4h', Rollout: '2h', Total: '16h' },
+        impact: { 'Build Speed': { val: '+15%' }, 'QA Pass Rate': { val: '+8%' }, 'Page Perf': { val: '+12%' } },
+        compat: { Webflow: 'Partial', Figma: 'No', n8n: 'No', Cloudflare: 'No', Playwright: 'Yes' }
+      },
+      {
+        title: 'Contentful Kills Free Tier — Audit Every Client Stack Now',
+        tier: 'a', tierLabel: 'A Tier',
+        pipeline: '10-Template → CMS Selection',
+        why: 'A client discovering their CMS bill tripled is a trust failure — recommending Contentful to cost-sensitive clients is now a direct liability.',
+        steps: [
+          'Audit all active client and internal projects using Contentful — verify billing status this week.',
+          'Evaluate migration to Sanity (visual editing, click-from-preview) or Payload (self-hosted, zero per-seat cost).',
+          'Update CMS framework: Sanity = content-heavy; Payload = budget-sensitive; Contentful = enterprise only.',
+          'Remove Contentful from the new-project proposal template immediately.'
+        ],
+        impl: { Research: '1h', Build: '2h', QA: '1h', Rollout: '2h', Total: '6h' },
+        impact: { 'Build Speed': { val: '+5%' }, 'QA Pass Rate': { val: '+5%' }, 'Page Perf': { val: '—', neutral: true } },
+        compat: { Webflow: 'Partial', Figma: 'No', n8n: 'Yes', Cloudflare: 'Yes', Playwright: 'Yes' }
+      },
+      {
+        title: 'Next.js 16.2 — 400% Faster Dev Startup Removes the Slow Build Objection',
+        tier: 'b', tierLabel: 'B Tier',
+        pipeline: 'Webflow Build (Headless Only)',
+        why: 'For headless projects running Next.js alongside Webflow or a headless CMS, the inner-loop speed improvement compounds across every dev session.',
+        steps: [
+          'Upgrade active Next.js projects: npm install next@latest — test Turbopack compatibility with custom webpack configs.',
+          'If Turbopack breaks anything, fall back via --no-turbopack — don\'t block a client delivery on it.',
+          'Skip Agent DevTools — experimental, no production ROI yet.'
+        ],
+        impl: { Research: '0.5h', Build: '1h', QA: '0.5h', Rollout: '—', Total: '2h' },
+        impact: { 'Build Speed': { val: '+40%' }, 'QA Pass Rate': { val: '+5%' }, 'Page Perf': { val: '—', neutral: true } },
+        compat: { Webflow: 'No', Figma: 'No', n8n: 'No', Cloudflare: 'Yes', Playwright: 'Yes' }
+      },
+      {
+        title: 'Figma MCP + Developer Logs: Automation Debugging Now Has a Paper Trail',
+        tier: 'b', tierLabel: 'B Tier',
+        pipeline: 'Figma → Design Handoff',
+        why: 'API token abuse and silent automation failures have been a blind spot — Developer Logs gives a forensic trail without building a custom proxy layer.',
+        steps: [
+          'Enable Developer Logs in Figma org settings — set alert thresholds for unusual API call volume.',
+          'For n8n → Figma automation: pipe log data into your n8n error-monitoring flow to catch silent failures.',
+          'Pilot Mermaid.js diagram generation in FigJam for one client architecture review.'
+        ],
+        impl: { Research: '0.5h', Build: '1h', QA: '0.5h', Rollout: '1h', Total: '3h' },
+        impact: { 'Build Speed': { val: '+5%' }, 'QA Pass Rate': { val: '+10%' }, 'Page Perf': { val: '—', neutral: true } },
+        compat: { Webflow: 'No', Figma: 'Yes', n8n: 'Yes', Cloudflare: 'No', Playwright: 'No' }
+      }
+    ];
+
+    const TIER_COLORS = { s: '#ff4444', a: '#ff8c3a', b: '#ffd166' };
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function compatClass(val) {
+      if (val === 'Yes') return 'compat-yes';
+      if (val === 'Partial') return 'compat-partial';
+      return 'compat-no';
+    }
+
+    function openDrawer(idx) {
+      const d = CARDS[idx];
+      const color = TIER_COLORS[d.tier];
+
+      document.getElementById('drawer-title').textContent = d.title;
+      document.getElementById('drawer-tier-badge').innerHTML =
+        `<span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:${color}22;color:${color}">${esc(d.tierLabel)}</span>`;
+      document.getElementById('drawer-pipeline').textContent = d.pipeline;
+
+      // Build steps HTML
+      const stepsHtml = d.steps.map((s, i) =>
+        `<div class="dsec-step"><span class="dsec-step-num">${i+1}</span><span>${esc(s)}</span></div>`
+      ).join('');
+
+      // Build impl chips
+      const implHtml = Object.entries(d.impl).map(([k, v]) =>
+        `<div class="dsec-impl-chip${k==='Total'?' total':''}">
+          <span class="dsec-impl-lbl">${esc(k)}</span>
+          <span class="dsec-impl-val">${esc(v)}</span>
+        </div>`
+      ).join('');
+
+      // Build impact stats
+      const impactHtml = Object.entries(d.impact).map(([k, v]) =>
+        `<div class="dsec-impact-stat">
+          <span class="dsec-impact-lbl">${esc(k)}</span>
+          <span class="dsec-impact-val${v.neutral?' neutral':''}">${esc(v.val)}</span>
+        </div>`
+      ).join('');
+
+      // Build compat badges
+      const compatHtml = Object.entries(d.compat).map(([tool, status]) =>
+        `<div class="compat-badge ${compatClass(status)}">
+          <span class="tool">${esc(tool)}</span>
+          <span class="status">${esc(status)}</span>
+        </div>`
+      ).join('');
+
+      document.getElementById('drawer-body').innerHTML = `
+        <div class="dsec">
+          <div class="dsec-label">Why This Matters</div>
+          <div class="dsec-text">${esc(d.why)}</div>
+        </div>
+        <div class="dsec">
+          <div class="dsec-label">What To Do</div>
+          <div class="dsec-steps">${stepsHtml}</div>
+        </div>
+        <div class="dsec">
+          <div class="dsec-label">Implementation Breakdown</div>
+          <div class="dsec-impl-grid">${implHtml}</div>
+        </div>
+        <div class="dsec">
+          <div class="dsec-label">Impact Projection</div>
+          <div class="dsec-impact-grid">${impactHtml}</div>
+        </div>
+        <div class="dsec">
+          <div class="dsec-label">Compatibility</div>
+          <div class="dsec-compat">${compatHtml}</div>
+        </div>
+      `;
+
+      document.getElementById('detail-overlay').classList.add('visible');
+      document.getElementById('detail-drawer').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      document.getElementById('detail-overlay').classList.remove('visible');
+      document.getElementById('detail-drawer').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+  </script>
 
 </body>
 </html>
