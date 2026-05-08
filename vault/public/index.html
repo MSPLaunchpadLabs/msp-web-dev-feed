@@ -134,6 +134,7 @@
       border-radius: 10px;
       margin-bottom: 16px;
       overflow: hidden;
+      position: relative;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .card:hover { border-color: #2a2a2a; }
@@ -452,18 +453,35 @@
     }
 
     /* ── Rank number (ranked mode only) ── */
-    .rank-num {
-      display: none;
-      font-size: 11px; font-weight: 800;
-      color: #333;
-      letter-spacing: 0.05em;
-      margin-right: 2px;
-    }
+    .rank-num { display: none; }
 
     /* ── Ranked mode ── */
     .ranked .tier-heading { display: none; }
-    .ranked .card { margin-bottom: 10px; }
-    .ranked .rank-num { display: inline; }
+    .ranked .card {
+      margin-bottom: 6px;
+      display: flex;
+      position: relative;
+    }
+    .ranked .card-accent {
+      height: auto;
+      width: 4px;
+      flex-shrink: 0;
+      border-radius: 0;
+    }
+    .ranked .card-body { flex: 1; padding: 14px 16px; }
+    .ranked .rank-num {
+      display: block;
+      position: absolute;
+      right: 14px;
+      bottom: 10px;
+      font-size: 72px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.03);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      pointer-events: none;
+      user-select: none;
+    }
 
     /* ── Responsive ── */
     @media (max-width: 600px) {
@@ -506,10 +524,11 @@
     <!-- Card 1 -->
     <article class="card card-s">
       <div class="card-accent"></div>
+      <span class="rank-num">1</span>
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="rank-num">#1</span><span class="tier-badge badge-s">S Tier</span>
+            <span class="tier-badge badge-s">S Tier</span>
             <span class="pipeline-badge">QA → Performance</span>
           </div>
           <div class="card-top-right">
@@ -534,10 +553,11 @@
     <!-- Card 2 -->
     <article class="card card-s">
       <div class="card-accent"></div>
+      <span class="rank-num">2</span>
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="rank-num">#2</span><span class="tier-badge badge-s">S Tier</span>
+            <span class="tier-badge badge-s">S Tier</span>
             <span class="pipeline-badge">Webflow Build → Handoff</span>
           </div>
           <div class="card-top-right">
@@ -569,10 +589,11 @@
     <!-- Card 3 -->
     <article class="card card-a">
       <div class="card-accent"></div>
+      <span class="rank-num">3</span>
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="rank-num">#3</span><span class="tier-badge badge-a">A Tier</span>
+            <span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">10-Template → Webflow Build</span>
           </div>
           <div class="card-top-right">
@@ -597,10 +618,11 @@
     <!-- Card 4 -->
     <article class="card card-a">
       <div class="card-accent"></div>
+      <span class="rank-num">4</span>
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="rank-num">#4</span><span class="tier-badge badge-a">A Tier</span>
+            <span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">Webflow Build → QA</span>
           </div>
           <div class="card-top-right">
@@ -625,10 +647,11 @@
     <!-- Card 5 -->
     <article class="card card-a">
       <div class="card-accent"></div>
+      <span class="rank-num">5</span>
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="rank-num">#5</span><span class="tier-badge badge-a">A Tier</span>
+            <span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">10-Template → CMS Selection</span>
           </div>
           <div class="card-top-right">
@@ -660,10 +683,11 @@
     <!-- Card 6 -->
     <article class="card card-b">
       <div class="card-accent"></div>
+      <span class="rank-num">6</span>
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="rank-num">#6</span><span class="tier-badge badge-b">B Tier</span>
+            <span class="tier-badge badge-b">B Tier</span>
             <span class="pipeline-badge">Webflow Build (Headless)</span>
           </div>
           <div class="card-top-right">
@@ -688,10 +712,11 @@
     <!-- Card 7 -->
     <article class="card card-b">
       <div class="card-accent"></div>
+      <span class="rank-num">7</span>
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="rank-num">#7</span><span class="tier-badge badge-b">B Tier</span>
+            <span class="tier-badge badge-b">B Tier</span>
             <span class="pipeline-badge">Figma → Design Handoff</span>
           </div>
           <div class="card-top-right">
@@ -723,6 +748,7 @@
     <!-- Card 8 -->
     <article class="card card-c">
       <div class="card-accent"></div>
+      <span class="rank-num">8</span>
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
