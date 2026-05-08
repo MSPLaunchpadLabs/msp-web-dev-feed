@@ -413,6 +413,51 @@
     .compat-no      { background: var(--no-bg);     border-color: var(--border); }
     .compat-no      .status { color: var(--no-text); }
 
+    /* ── Sort toggle ── */
+    .sort-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 28px;
+    }
+    .sort-toggle {
+      display: inline-flex;
+      background: #111;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .sort-opt {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      font-family: inherit;
+    }
+    .sort-opt.active {
+      background: #1e1e1e;
+      color: var(--text);
+    }
+
+    /* ── Rank number (ranked mode only) ── */
+    .rank-num {
+      display: none;
+      font-size: 11px; font-weight: 800;
+      color: #333;
+      letter-spacing: 0.05em;
+      margin-right: 2px;
+    }
+
+    /* ── Ranked mode ── */
+    .ranked .tier-heading { display: none; }
+    .ranked .card { margin-bottom: 10px; }
+    .ranked .rank-num { display: inline; }
+
     /* ── Responsive ── */
     @media (max-width: 600px) {
       #detail-drawer { width: 100%; }
@@ -435,7 +480,14 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="feed-main">
+
+    <div class="sort-bar">
+      <div class="sort-toggle">
+        <button class="sort-opt active" id="opt-tiered" onclick="setSort('tiered')">Tiered</button>
+        <button class="sort-opt" id="opt-ranked" onclick="setSort('ranked')">Ranked</button>
+      </div>
+    </div>
 
     <!-- ════════ S TIER ════════ -->
     <div class="tier-heading tier-s">
@@ -450,7 +502,7 @@
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="tier-badge badge-s">S Tier</span>
+            <span class="rank-num">#1</span><span class="tier-badge badge-s">S Tier</span>
             <span class="pipeline-badge">QA → Performance</span>
           </div>
           <div class="card-top-right">
@@ -478,7 +530,7 @@
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="tier-badge badge-s">S Tier</span>
+            <span class="rank-num">#2</span><span class="tier-badge badge-s">S Tier</span>
             <span class="pipeline-badge">Webflow Build → Handoff</span>
           </div>
           <div class="card-top-right">
@@ -513,7 +565,7 @@
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="tier-badge badge-a">A Tier</span>
+            <span class="rank-num">#3</span><span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">10-Template → Webflow Build</span>
           </div>
           <div class="card-top-right">
@@ -541,7 +593,7 @@
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="tier-badge badge-a">A Tier</span>
+            <span class="rank-num">#4</span><span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">Webflow Build → QA</span>
           </div>
           <div class="card-top-right">
@@ -569,7 +621,7 @@
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="tier-badge badge-a">A Tier</span>
+            <span class="rank-num">#5</span><span class="tier-badge badge-a">A Tier</span>
             <span class="pipeline-badge">10-Template → CMS Selection</span>
           </div>
           <div class="card-top-right">
@@ -604,7 +656,7 @@
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="tier-badge badge-b">B Tier</span>
+            <span class="rank-num">#6</span><span class="tier-badge badge-b">B Tier</span>
             <span class="pipeline-badge">Webflow Build (Headless)</span>
           </div>
           <div class="card-top-right">
@@ -632,7 +684,7 @@
       <div class="card-body">
         <div class="card-top">
           <div class="card-top-left">
-            <span class="tier-badge badge-b">B Tier</span>
+            <span class="rank-num">#7</span><span class="tier-badge badge-b">B Tier</span>
             <span class="pipeline-badge">Figma → Design Handoff</span>
           </div>
           <div class="card-top-right">
@@ -677,6 +729,13 @@
   </div>
 
   <script>
+    function setSort(mode) {
+      const main = document.getElementById('feed-main');
+      document.getElementById('opt-tiered').classList.toggle('active', mode === 'tiered');
+      document.getElementById('opt-ranked').classList.toggle('active', mode === 'ranked');
+      main.classList.toggle('ranked', mode === 'ranked');
+    }
+
     const CARDS = [
       {
         title: 'INP Is Now a Ranking Signal — Interactivity Delays Cost You Positions',
