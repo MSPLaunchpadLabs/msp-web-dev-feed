@@ -5,6 +5,12 @@
     "start": "serve public -l ${PORT:-3000}"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "google-auth-library": "^9.0.0",
+    "jsonwebtoken": "^9.0.0",
     "serve": "^14.2.4"
+  },
+  "devDependencies": {
+    "docx": "^9.6.1"
   }
 }
