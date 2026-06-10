@@ -1,4 +1,7 @@
 {
   "outputDirectory": "public",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "crons": [
+    { "path": "/api/generate", "schedule": "0 8 * * 1" }
+  ]
 }
