@@ -1,10 +1,7 @@
 'use strict';
-const crypto = require('crypto');
 
-const TEAM_ID = 'team_N9vL7OHq7kxbxNmKkC9LQOx2';
-const PROJECT_ID = 'prj_4McMXzRzVVI4WSN1CZ6h3S3yi4eJ';
-const PROD_ALIAS = 'mspl-webdev-intelligence-feed.vercel.app';
-const BASE_URL = 'https://mspl-webdev-intelligence-feed.vercel.app';
+const REPO = 'msplserviceacc/msp-web-dev-feed';
+const FILE_PATH = 'public/weeks-data.js';
 
 const PROMPT = (weekKey) => `You are generating a weekly web development intelligence brief for MSP Launchpad, a web agency specialising in Webflow, Figma, n8n automation, and client website delivery.
 
@@ -19,7 +16,7 @@ Respond with ONLY a valid JSON array (no markdown, no explanation) with exactly 
     "pipeline": "Relevant pipeline stage e.g. QA → Performance",
     "source": "Source name",
     "url": "https://relevant-source-url.com",
-    "benefit": "One sentence: what this means for the team right now",
+    "benefit": "One sentence: what this saves, earns, or protects for the agency — not developer outcomes",
     "roi": "Immediate",
     "fit": 5,
     "why": "2-3 sentences explaining why this matters for MSP Launchpad specifically",
@@ -44,17 +41,21 @@ Respond with ONLY a valid JSON array (no markdown, no explanation) with exactly 
 Use tier: s for immediate action required (1-2 items), a for adopt soon (2-3 items), b for worth knowing (2-3 items), c for watch list (1 item).
 roi values: "Immediate", "High", "Medium", "Watch"
 fit: 1-5 integer
-compat values for each tool: "Yes", "Partial", or "No"`;
+compat values for each tool: "Yes", "Partial", or "No"
+For impl, use "—" for stages that don't apply.`;
 
 module.exports = async (req, res) => {
-  // Verify cron auth
   if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  try {
-    const token = process.env.VERCEL_DEPLOY_TOKEN;
+  const githubToken = process.env.GITHUB_TOKEN;
+  const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
+  if (!githubToken) return res.status(500).json({ error: 'GITHUB_TOKEN not set' });
+  if (!anthropicKey) return res.status(500).json({ error: 'ANTHROPIC_API_KEY not set' });
+
+  try {
     // Compute this week's Monday
     const today = new Date();
     const day = today.getDay();
@@ -64,13 +65,21 @@ module.exports = async (req, res) => {
     monday.setHours(12, 0, 0, 0);
     const weekKey = monday.toISOString().split('T')[0];
 
-    // Fetch current weeks-data.js
-    const weeksDataRes = await fetch(`${BASE_URL}/weeks-data.js`);
-    if (!weeksDataRes.ok) throw new Error('Failed to fetch weeks-data.js');
-    const currentWeeksData = await weeksDataRes.text();
+    // Fetch current weeks-data.js from GitHub
+    const ghRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+      headers: {
+        Authorization: `Bearer ${githubToken}`,
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+    });
+    if (!ghRes.ok) throw new Error(`GitHub fetch failed: ${ghRes.status}`);
+    const ghData = await ghRes.json();
+    const currentContent = Buffer.from(ghData.content, 'base64').toString('utf8');
+    const fileSha = ghData.sha;
 
-    // Skip if already generated
-    if (currentWeeksData.includes(`'${weekKey}'`)) {
+    // Skip if already generated this week
+    if (currentContent.includes(`'${weekKey}'`)) {
       return res.json({ message: 'Already generated', week: weekKey });
     }
 
@@ -78,7 +87,7 @@ module.exports = async (req, res) => {
     const aiRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'x-api-key': anthropicKey,
         'anthropic-version': '2023-06-01',
         'content-type': 'application/json'
       },
@@ -88,16 +97,11 @@ module.exports = async (req, res) => {
         messages: [{ role: 'user', content: PROMPT(weekKey) }]
       })
     });
-
-    if (!aiRes.ok) {
-      const err = await aiRes.text();
-      throw new Error(`Anthropic error: ${err}`);
-    }
+    if (!aiRes.ok) throw new Error(`Anthropic error: ${await aiRes.text()}`);
 
     const aiData = await aiRes.json();
     const text = aiData.content[0].text.trim();
 
-    // Parse JSON
     const jsonMatch = text.match(/\[[\s\S]*\]/);
     if (!jsonMatch) throw new Error('Could not parse AI response as JSON array');
     const items = JSON.parse(jsonMatch[0]);
@@ -105,92 +109,25 @@ module.exports = async (req, res) => {
 
     // Inject new week at top of WEEKS object
     const newEntry = `  '${weekKey}': ${JSON.stringify(items)},\n`;
-    const updatedWeeksData = currentWeeksData.replace(/^var WEEKS = \{/m, `var WEEKS = {\n${newEntry}`);
+    const updatedContent = currentContent.replace(/^var WEEKS = \{/m, `var WEEKS = {\n${newEntry}`);
 
-    // Upload new weeks-data.js
-    const newBuf = Buffer.from(updatedWeeksData, 'utf8');
-    const newSha = crypto.createHash('sha1').update(newBuf).digest('hex');
-
-    await fetch('https://api.vercel.com/v2/files', {
-      method: 'POST',
+    // Commit updated file to GitHub — Vercel auto-deploys from this push
+    const commitRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+      method: 'PUT',
       headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/octet-stream',
-        'x-vercel-digest': newSha,
-        'Content-Length': String(newBuf.length)
+        Authorization: `Bearer ${githubToken}`,
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Content-Type': 'application/json'
       },
-      body: newBuf
-    });
-
-    // Get current production deployment
-    const deploymentsRes = await fetch(
-      `https://api.vercel.com/v6/deployments?projectId=${PROJECT_ID}&teamId=${TEAM_ID}&limit=1&target=production`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    const { deployments } = await deploymentsRes.json();
-    const prodDeploy = deployments[0];
-
-    // Get all files from current deployment
-    const filesRes = await fetch(
-      `https://api.vercel.com/v6/deployments/${prodDeploy.uid}/files?teamId=${TEAM_ID}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    const fileTree = await filesRes.json();
-
-    // Flatten file tree to list of { file, sha }
-    function flattenFiles(nodes, prefix = '') {
-      const result = [];
-      for (const node of nodes) {
-        const path = prefix ? `${prefix}/${node.name}` : node.name;
-        if (node.type === 'directory') {
-          result.push(...flattenFiles(node.children || [], path));
-        } else {
-          result.push({ file: path, sha: node.uid });
-        }
-      }
-      return result;
-    }
-
-    const allFiles = flattenFiles(Array.isArray(fileTree) ? fileTree : [fileTree]);
-
-    // Replace weeks-data.js with updated version
-    const deployFiles = allFiles.map(f =>
-      f.file === 'public/weeks-data.js'
-        ? { file: 'public/weeks-data.js', sha: newSha, size: newBuf.length }
-        : f
-    );
-
-    // Create new deployment
-    const deployRes = await fetch(`https://api.vercel.com/v13/deployments?teamId=${TEAM_ID}`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: 'vault',
-        project: PROJECT_ID,
-        target: 'production',
-        files: deployFiles,
-        projectSettings: { framework: null }
+        message: `Add week ${weekKey} — auto-generated by Claude`,
+        content: Buffer.from(updatedContent, 'utf8').toString('base64'),
+        sha: fileSha,
+        committer: { name: 'MSP Launchpad Bot', email: 'bot@msplaunchpad.com' }
       })
     });
-    const deployment = await deployRes.json();
-    if (!deployment.id) throw new Error(`Deploy failed: ${JSON.stringify(deployment)}`);
-
-    // Wait for READY
-    for (let i = 0; i < 24; i++) {
-      await new Promise(r => setTimeout(r, 5000));
-      const s = await fetch(`https://api.vercel.com/v13/deployments/${deployment.id}?teamId=${TEAM_ID}`,
-        { headers: { Authorization: `Bearer ${token}` } });
-      const j = await s.json();
-      if (j.readyState === 'READY') break;
-      if (j.readyState === 'ERROR') throw new Error('Deployment failed');
-    }
-
-    // Update alias
-    await fetch(`https://api.vercel.com/v2/deployments/${deployment.id}/aliases?teamId=${TEAM_ID}`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ alias: PROD_ALIAS })
-    });
+    if (!commitRes.ok) throw new Error(`GitHub commit failed: ${await commitRes.text()}`);
 
     return res.json({ success: true, week: weekKey, items: items.length });
 
