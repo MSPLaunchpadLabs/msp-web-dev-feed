@@ -814,13 +814,15 @@
         sel.appendChild(opt);
       }
 
-      // Always default to the most recent Monday (current week)
+      // Default to the most recent week that has data (fallback if current week not generated yet)
       const currentKey = latest.toISOString().split('T')[0];
-      sel.value = currentKey;
-      switchWeek(currentKey);
+      const defaultKey = WEEKS[currentKey] ? currentKey : Object.keys(WEEKS).sort().reverse()[0];
+      sel.value = defaultKey;
+      switchWeek(defaultKey);
 
       // Footer shows the same Monday date as the header
-      document.getElementById('footer-date').textContent = 'Week of ' + latest.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+      const footerDate = new Date(defaultKey + 'T12:00:00');
+      document.getElementById('footer-date').textContent = 'Week of ' + footerDate.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
     })();
   </script>
 
