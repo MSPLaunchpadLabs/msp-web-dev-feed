@@ -586,34 +586,53 @@
       main.classList.toggle('ranked', mode === 'ranked');
     }
 
-    // ── Glossary: hover over underlined terms in the drawer for plain-English definitions ──
+    // ── Glossary: hover over underlined terms for plain-English definitions ──
     const GLOSSARY = {
-      'INP':        'Interaction to Next Paint — how fast a page responds when you click or type. Google now uses this as a search ranking signal.',
-      'LCP':        'Largest Contentful Paint — how quickly the main content on a page loads. A core Google ranking factor.',
-      'CLS':        'Cumulative Layout Shift — how much a page\'s content unexpectedly jumps around while loading. A Core Web Vitals metric.',
-      'CWV':        'Core Web Vitals — Google\'s three key performance metrics (LCP, INP, CLS) that directly affect search rankings.',
-      'CrUX':       'Chrome User Experience Report — real performance data collected by Google from actual site visitors.',
-      'CMS':        'Content Management System — software that lets clients add and edit website content without coding (e.g. Webflow CMS, WordPress).',
-      'Contentful': 'A paid headless CMS. Stores and delivers website content via API. Recently removed its free plan — minimum is now $300/month.',
-      'Turbopack':  'A fast build tool for Next.js projects. Speeds up page reload times during development.',
-      'MCP':        'Model Context Protocol — a standard that lets AI tools like Claude connect directly to apps like Figma or GitHub.',
-      'n8n':        'A free, self-hosted automation tool. Connects apps and services — like a private version of Zapier.',
-      'Playwright': 'A browser automation tool for testing. Opens a real browser and checks whether a website works correctly.',
-      'SLA':        'Service Level Agreement — a contract that defines the performance standards you promise to deliver to clients.',
-      'API':        'Application Programming Interface — a standard way for two pieces of software to talk to each other.',
-      'SEO':        'Search Engine Optimisation — making a website rank higher in Google search results.',
-      'SSR':        'Server-Side Rendering — the server builds the page HTML before sending it to the browser, making the first load faster.',
-      'SPA':        'Single Page Application — a site that loads once and swaps content without full page reloads (e.g. React or Vue apps).',
-      'PPR':        'Partial Pre-Rendering — a Next.js technique that combines a fast static shell with dynamic personalised content on the same page.',
-      'FSE':        'Full Site Editing — WordPress\'s new block-based system for editing the entire layout of a site, not just the content.',
-      'WCAG':       'Web Content Accessibility Guidelines — international standards for making websites usable by people with disabilities.',
-      'E-E-A-T':    'Experience, Expertise, Authoritativeness, Trustworthiness — Google\'s framework for evaluating content quality. Sites with stronger signals rank higher.',
-      'CDN':        'Content Delivery Network — a network of servers worldwide that serves website files from the location closest to the visitor.',
-      'CTR':        'Click-Through Rate — the percentage of people who click a link after seeing it in search results.',
-      'LTS':        'Long Term Support — a software version guaranteed to receive security fixes for years (usually 2–3). Safe to use in production.',
-      'GA':         'Generally Available — officially released to everyone, out of beta or early access.',
-      'DX':         'Developer Experience — how easy or pleasant a tool or framework is to work with day-to-day.',
-      'JWT':        'JSON Web Token — a compact, signed token used to verify a user\'s identity without storing session data on the server.',
+      'INP':          'Interaction to Next Paint — how fast a page responds when you click or type. Google now uses this as a search ranking signal.',
+      'LCP':          'Largest Contentful Paint — how quickly the main content on a page loads. A core Google ranking factor.',
+      'CLS':          'Cumulative Layout Shift — how much a page\'s content unexpectedly jumps around while loading. A Core Web Vitals metric.',
+      'CWV':          'Core Web Vitals — Google\'s three key performance metrics (LCP, INP, CLS) that directly affect search rankings.',
+      'CrUX':         'Chrome User Experience Report — real performance data collected by Google from actual site visitors.',
+      'CMS':          'Content Management System — software that lets clients add and edit website content without coding (e.g. Webflow CMS, WordPress).',
+      'Contentful':   'A paid headless CMS. Stores and delivers website content via API. Recently removed its free plan — minimum is now $300/month.',
+      'Turbopack':    'A fast build tool for Next.js projects. Speeds up page reload times during development.',
+      'MCP':          'Model Context Protocol — a standard that lets AI tools like Claude connect directly to apps like Figma or GitHub.',
+      'n8n':          'A free, self-hosted automation tool. Connects apps and services — like a private version of Zapier.',
+      'Playwright':   'A browser automation tool for testing. Opens a real browser and checks whether a website works correctly.',
+      'SLA':          'Service Level Agreement — a contract that defines the performance standards you promise to deliver to clients.',
+      'API':          'Application Programming Interface — a standard way for two pieces of software to talk to each other.',
+      'SEO':          'Search Engine Optimisation — making a website rank higher in Google search results.',
+      'SSR':          'Server-Side Rendering — the server builds the page HTML before sending it to the browser, making the first load faster.',
+      'SPA':          'Single Page Application — a site that loads once and swaps content without full page reloads (e.g. React or Vue apps).',
+      'PPR':          'Partial Pre-Rendering — a Next.js technique that combines a fast static shell with dynamic personalised content on the same page.',
+      'FSE':          'Full Site Editing — WordPress\'s new block-based system for editing the entire layout of a site, not just the content.',
+      'WCAG':         'Web Content Accessibility Guidelines — international standards for making websites usable by people with disabilities.',
+      'E-E-A-T':      'Experience, Expertise, Authoritativeness, Trustworthiness — Google\'s framework for evaluating content quality. Sites with stronger signals rank higher.',
+      'CDN':          'Content Delivery Network — a network of servers worldwide that serves website files from the location closest to the visitor.',
+      'CTR':          'Click-Through Rate — the percentage of people who click a link after seeing it in search results.',
+      'LTS':          'Long Term Support — a software version guaranteed to receive security fixes for years (usually 2–3). Safe to use in production.',
+      'GA':           'Generally Available — officially released to everyone, out of beta or early access.',
+      'DX':           'Developer Experience — how easy or pleasant a tool or framework is to work with day-to-day.',
+      'JWT':          'JSON Web Token — a compact, signed token used to verify a user\'s identity without storing session data on the server.',
+      'CVE':          'Common Vulnerabilities and Exposures — a numbered list of publicly known security flaws. "151 CVE fixes" means 151 known security holes were patched.',
+      'WAF':          'Web Application Firewall — a security layer that blocks hackers, bots, and malicious requests before they reach a website.',
+      'CSS':          'Cascading Style Sheets — the code that controls how a webpage looks: colours, fonts, spacing, and layout.',
+      'HTML':         'HyperText Markup Language — the code that defines the structure and content of a webpage.',
+      'GSAP':         'GreenSock Animation Platform — a popular JavaScript animation library used for smooth scroll effects and transitions on websites.',
+      'JS':           'JavaScript — the programming language that powers interactive features on websites (animations, forms, dynamic content).',
+      'DOM':          'Document Object Model — the browser\'s internal map of a webpage\'s structure; scripts use it to update content without reloading the page.',
+      'TTFB':         'Time To First Byte — how quickly a server starts sending data back to the browser. Faster TTFB = better perceived performance and Google rankings.',
+      'Webflow':      'A visual website builder that generates production-ready HTML and CSS — no manual coding needed for layout and styling.',
+      'Figma':        'A browser-based design tool for creating website mockups, UI components, and design systems.',
+      'Cloudflare':   'A service that protects websites from attacks and speeds up global delivery via a worldwide network of servers.',
+      'Vercel':       'A hosting platform for modern web apps — handles deployments, serverless functions, and global performance optimisation.',
+      'npm':          'Node Package Manager — the tool developers use to install and manage JavaScript libraries and tools.',
+      'React':        'A popular JavaScript library for building interactive user interfaces, maintained by Meta (Facebook).',
+      'Vue':          'A lightweight JavaScript framework for building interactive web interfaces — a simpler alternative to React.',
+      'WordPress':    'The world\'s most widely used CMS — powers about 40% of all websites. Content is managed via a dashboard without coding.',
+      'Zapier':       'A no-code automation tool that connects apps and triggers actions automatically — e.g. "when a form is submitted, add a row to Google Sheets".',
+      'ScrollTrigger':'A GSAP plugin that starts or scrubs animations based on how far a user has scrolled down the page.',
+      'ScrollMagic':  'A JavaScript library for pinning page sections and triggering animations as the user scrolls.',
     };
 
     const TIER_COLORS  = { s: '#ff4444', a: '#ff8c3a', b: '#ffd166', c: '#7b93b4' };
@@ -633,7 +652,7 @@
     }
 
     function applyJargon(text) {
-      return esc(text).replace(/\b(INP|LCP|CLS|CWV|CrUX|CMS|Contentful|Turbopack|MCP|n8n|Playwright|SLA|API|SEO|SSR|SPA|PPR|FSE|WCAG|CDN|CTR|LTS|GA|DX|JWT|E-E-A-T)\b/g, m => {
+      return esc(text).replace(/\b(INP|LCP|CLS|CWV|CrUX|CMS|Contentful|Turbopack|MCP|n8n|Playwright|SLA|API|SEO|SSR|SPA|PPR|FSE|WCAG|CDN|CTR|LTS|GA|DX|JWT|E-E-A-T|CVE|WAF|CSS|HTML|GSAP|JS|DOM|TTFB|Webflow|Figma|Cloudflare|Vercel|npm|React|Vue|WordPress|Zapier|ScrollTrigger|ScrollMagic)\b/g, m => {
         const tip = GLOSSARY[m];
         return tip ? `<span class="jargon" title="${esc(tip)}">${m}</span>` : m;
       });
@@ -673,8 +692,8 @@
                   <a class="source-arrow" href="${esc(c.url)}" target="_blank" rel="noopener" title="Open source">↗</a>
                 </div>
               </div>
-              <h2 class="card-title">${esc(c.title)}</h2>
-              <p class="card-benefit">${esc(c.benefit)}</p>
+              <h2 class="card-title">${applyJargon(c.title)}</h2>
+              <p class="card-benefit">${applyJargon(c.benefit)}</p>
               <div class="card-stats">
                 <span class="stat-chip"><span class="stat-icon">⏱</span> ${esc(c.impl.Total)}</span>
                 <span class="stat-chip roi-chip">ROI: <span class="stat-val" style="color:${roiColor(c.roi)}">${esc(c.roi)}</span></span>
@@ -717,7 +736,7 @@
       const d = currentCards[idx];
       const color = TIER_COLORS[d.tier];
 
-      document.getElementById('drawer-title').textContent = d.title;
+      document.getElementById('drawer-title').innerHTML = applyJargon(d.title);
       document.getElementById('drawer-tier-badge').innerHTML =
         `<span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:${color}22;color:${color}">${esc(d.tierLabel)}</span>`;
       document.getElementById('drawer-pipeline').textContent = d.pipeline;
