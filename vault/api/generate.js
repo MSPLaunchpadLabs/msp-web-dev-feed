@@ -1,6 +1,74 @@
 'use strict';
 const crypto = require('crypto');
 
+const TIER_ORDER  = { s: 0, a: 1, b: 2, c: 3 };
+const TIER_EMOJI  = { s: '🔴', a: '🟠', b: '🟡', c: '🔵' };
+const TIER_COLORS = { s: 0xff4444, a: 0xff8c3a, b: 0xffd166, c: 0x7b93b4 };
+
+// Add Discord user/role ID here once available, e.g. '<@123456789>' or '<@&ROLE_ID>'
+const DEV_TEAM_MENTION = '';
+
+async function sendDiscordNotification(items, weekKey) {
+  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+  if (!webhookUrl) return;
+
+  const actionable = items
+    .filter(i => i.tier === 's' || i.tier === 'a')
+    .sort((a, b) => {
+      if (TIER_ORDER[a.tier] !== TIER_ORDER[b.tier]) return TIER_ORDER[a.tier] - TIER_ORDER[b.tier];
+      return (b.fit || 0) - (a.fit || 0);
+    })
+    .slice(0, 3);
+
+  const isActionable = actionable.length > 0;
+  const displayItems = isActionable
+    ? actionable
+    : items.filter(i => i.tier === 'b').sort((a, b) => (b.fit || 0) - (a.fit || 0)).slice(0, 3);
+
+  if (displayItems.length === 0) return;
+
+  const topColor = TIER_COLORS[displayItems[0].tier] || 0xff4444;
+
+  const title = isActionable
+    ? `🚨 This Week's Top 3 Action Items — ${weekKey}`
+    : `📚 FYI This Week — Worth Knowing — ${weekKey}`;
+
+  const description = isActionable
+    ? 'Dev team — these need attention this week.'
+    : 'No immediate action items this week. Here\'s what\'s worth being aware of:';
+
+  const fields = displayItems.map((item, idx) => {
+    const benefit = item.benefit.length > 200 ? item.benefit.slice(0, 197) + '…' : item.benefit;
+    const step = item.steps && item.steps[0]
+      ? (item.steps[0].length > 150 ? item.steps[0].slice(0, 147) + '…' : item.steps[0])
+      : null;
+    return {
+      name: `${TIER_EMOJI[item.tier] || ''} ${idx + 1}. ${item.title}`,
+      value: [benefit ? `> ${benefit}` : null, step ? `**→** ${step}` : null].filter(Boolean).join('\n'),
+      inline: false
+    };
+  });
+
+  const payload = {
+    ...(DEV_TEAM_MENTION ? { content: DEV_TEAM_MENTION } : {}),
+    embeds: [{
+      title,
+      description,
+      color: topColor,
+      fields,
+      footer: { text: `MSP Launchpad Web Dev Intelligence Feed • ${weekKey}` },
+      url: 'https://mspl-webdev-intelligence-feed.vercel.app'
+    }]
+  };
+
+  const discordRes = await fetch(webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!discordRes.ok) console.error('Discord webhook failed:', discordRes.status, await discordRes.text());
+}
+
 const TEAM_ID   = 'team_N9vL7OHq7kxbxNmKkC9LQOx2';
 const PROJECT_ID = 'prj_4McMXzRzVVI4WSN1CZ6h3S3yi4eJ';
 const PROD_ALIAS = 'mspl-webdev-intelligence-feed.vercel.app';
@@ -187,6 +255,9 @@ module.exports = async (req, res) => {
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ alias: PROD_ALIAS })
     });
+
+    // Notify Discord — never let this break the deployment response
+    try { await sendDiscordNotification(items, weekKey); } catch (e) { console.error('Discord error:', e); }
 
     return res.json({ success: true, week: weekKey, items: items.length });
 
