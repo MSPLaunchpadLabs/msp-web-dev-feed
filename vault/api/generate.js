@@ -5,8 +5,7 @@ const TIER_ORDER  = { s: 0, a: 1, b: 2, c: 3 };
 const TIER_EMOJI  = { s: '🔴', a: '🟠', b: '🟡', c: '🔵' };
 const TIER_COLORS = { s: 0xff4444, a: 0xff8c3a, b: 0xffd166, c: 0x7b93b4 };
 
-// Add Discord user/role ID here once available, e.g. '<@123456789>' or '<@&ROLE_ID>'
-const DEV_TEAM_MENTION = '';
+const DEV_TEAM_MENTION = '<@&1344027196381204573>';
 
 async function sendDiscordNotification(items, weekKey) {
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
@@ -50,7 +49,8 @@ async function sendDiscordNotification(items, weekKey) {
   });
 
   const payload = {
-    ...(DEV_TEAM_MENTION ? { content: DEV_TEAM_MENTION } : {}),
+    content: DEV_TEAM_MENTION,
+    allowed_mentions: { roles: ['1344027196381204573'] },
     embeds: [{
       title,
       description,
